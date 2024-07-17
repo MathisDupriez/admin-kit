@@ -8,7 +8,10 @@ COMMANDS=(
     "disk-usage" 
     "add-dns-record" 
     "add-user" 
-    "remove-user")
+    "remove-user"
+    "add-proxy-vhost"
+    "add-static-vhost"
+    )
 
 # Ensure the admin-kit directory exists
 mkdir -p "$ADMIN_KIT_DIR"
@@ -44,6 +47,12 @@ call_command() {
             ;;
         "remove-user")
             "$ADMIN_KIT_DIR/utils/remove-user.sh" "$@"
+            ;;
+        "add-proxy-vhost")
+            "$ADMIN_KIT_DIR/utils/add-proxy-vhost.sh" "$@"
+            ;;
+        "add-static-vhost")
+            "$ADMIN_KIT_DIR/utils/add-static-vhost.sh" "$@"
             ;;
         *)
             printf "Unknown command: %s\n" "$cmd" >&2
