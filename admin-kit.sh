@@ -2,7 +2,13 @@
 
 # Define global constants
 ADMIN_KIT_DIR="/opt/script/admin-kit"
-COMMANDS=("list-users" "system-info" "disk-usage" "add-dns-record" "add-user" "remove-user")
+COMMANDS=(
+    "list-users"
+    "system-info" 
+    "disk-usage" 
+    "add-dns-record" 
+    "add-user" 
+    "remove-user")
 
 # Ensure the admin-kit directory exists
 mkdir -p "$ADMIN_KIT_DIR"
@@ -22,22 +28,22 @@ call_command() {
 
     case "$cmd" in
         "list-users")
-            "$ADMIN_KIT_DIR/list-users.sh" "$@"
+            "$ADMIN_KIT_DIR/utils/list-users.sh" "$@"
             ;;
         "system-info")
-            "$ADMIN_KIT_DIR/system-info.sh" "$@"
+            "$ADMIN_KIT_DIR/utils/system-info.sh" "$@"
             ;;
         "disk-usage")
-            "$ADMIN_KIT_DIR/disk-usage.sh" "$@"
+            "$ADMIN_KIT_DIR/utils/disk-usage.sh" "$@"
             ;;
         "add-dns-record")
-            "$ADMIN_KIT_DIR/add-dns-record.sh" "$@"
+            "$ADMIN_KIT_DIR/utils/add-dns-record.sh" "$@"
             ;;
         "add-user")
-            "$ADMIN_KIT_DIR/add-user.sh" "$@"
+            "$ADMIN_KIT_DIR/utils/add-user.sh" "$@"
             ;;
         "remove-user")
-            "$ADMIN_KIT_DIR/remove-user.sh" "$@"
+            "$ADMIN_KIT_DIR/utils/remove-user.sh" "$@"
             ;;
         *)
             printf "Unknown command: %s\n" "$cmd" >&2
