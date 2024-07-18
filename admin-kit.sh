@@ -7,12 +7,16 @@ COMMANDS=(
     "system-info" 
     "disk-usage" 
     "add-dns-record" 
-    "add-user" 
-    "remove-user"
+    "add-ldap-user" 
+    "remove-ldap-user"
     "add-proxy-vhost"
     "add-static-vhost"
+    "add-sftp-user"
     )
-
+INITCOMANDE=(
+    "init-sftp"
+    "init-nginx"
+    )
 # Ensure the admin-kit directory exists
 mkdir -p "$ADMIN_KIT_DIR"
 
@@ -20,6 +24,11 @@ mkdir -p "$ADMIN_KIT_DIR"
 list_commands() {
     printf "Available commands:\n"
     for cmd in "${COMMANDS[@]}"; do
+        printf "  admin-kit %s\n" "$cmd"
+    done
+    printf "\n"
+    printf "Init commands:\n"
+    for cmd in "${INITCOMANDE[@]}"; do
         printf "  admin-kit %s\n" "$cmd"
     done
 }
@@ -42,17 +51,26 @@ call_command() {
         "add-dns-record")
             "$ADMIN_KIT_DIR/utils/add-dns-record.sh" "$@"
             ;;
-        "add-user")
-            "$ADMIN_KIT_DIR/utils/add-user.sh" "$@"
+        "add-ldap-user")
+            "$ADMIN_KIT_DIR/utils/add-ldap-user.sh" "$@"
             ;;
-        "remove-user")
-            "$ADMIN_KIT_DIR/utils/remove-user.sh" "$@"
+        "remove-ldap-user")
+            "$ADMIN_KIT_DIR/utils/remove-ldap-user.sh" "$@"
+            ;;
+        "add-sftp-user")
+            "$ADMIN_KIT_DIR/utils/add-sftp-user.sh" "$@"
             ;;
         "add-proxy-vhost")
             "$ADMIN_KIT_DIR/utils/add-proxy-vhost.sh" "$@"
             ;;
         "add-static-vhost")
             "$ADMIN_KIT_DIR/utils/add-static-vhost.sh" "$@"
+            ;;
+        "init-sftp")
+            "$ADMIN_KIT_DIR/init/init-sftp.sh" "$@"
+            ;;
+        "init-nginx")
+            "$ADMIN_KIT_DIR/init/init-nginx.sh" "$@"
             ;;
         *)
             printf "Unknown command: %s\n" "$cmd" >&2
