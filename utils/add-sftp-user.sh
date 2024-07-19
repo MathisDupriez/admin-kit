@@ -50,21 +50,21 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-sudo mkdir /home/$USERNAME/upload
+sudo mkdir /home/$USERNAME/data
 if [ $? -ne 0 ]; then
-    echo "Échec de la création du répertoire /home/$USERNAME/upload."
+    echo "Échec de la création du répertoire /home/$USERNAME/data."
     exit 1
 fi
 
-sudo chown $USERNAME:sftpusers /home/$USERNAME/upload
+sudo chown $USERNAME:sftpusers /home/$USERNAME/data
 if [ $? -ne 0 ]; then
-    echo "Échec de la définition des permissions de propriété sur /home/$USERNAME/upload."
+    echo "Échec de la définition des permissions de propriété sur /home/$USERNAME/data."
     exit 1
 fi
 
-sudo chmod 770 /home/$USERNAME/upload
+sudo chmod 770 /home/$USERNAME/data
 if [ $? -ne 0 ]; then
-    echo "Échec de la définition des permissions sur /home/$USERNAME/upload."
+    echo "Échec de la définition des permissions sur /home/$USERNAME/data."
     exit 1
 fi
 
