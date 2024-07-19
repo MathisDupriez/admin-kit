@@ -14,16 +14,23 @@ if ! id "$USERNAME" >/dev/null 2>&1; then
     exit 1
 fi
 
-# Supprimer l'utilisateur et son répertoire home
-sudo userdel -r $USERNAME
+# Supprimer l'utilisateur
+sudo userdel $USERNAME
 if [ $? -ne 0 ]; then
     echo "Échec de la suppression de l'utilisateur $USERNAME."
     exit 1
 fi
 
+# Supprimer le répertoire home de l'utilisateur
+sudo rm -rf /home/$USERNAME
+if [ $? -ne 0 ]; then
+    echo "Échec de la suppression du répertoire home de l'utilisateur $USERNAME."
+    exit 1
+fi
+
 # Vérifier si le groupe sftpusers existe et supprimer s'il est vide
 if getent group sftpusers >/dev/null; then
-    if [ $(getent group sftpusers | awk -F: '{print $4}') == "" ]; then
+    if [ -z "$(getent group sftpusers | awk -F: '{print $4}')" ]; then
         sudo groupdel sftpusers
         if [ $? -ne 0 ]; then
             echo "Échec de la suppression du groupe sftpusers."
