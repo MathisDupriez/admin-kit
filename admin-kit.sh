@@ -12,6 +12,7 @@ COMMANDS=(
     "add-proxy-vhost"
     "add-static-vhost"
     "add-sftp-user"
+    "remove-sftp-user"
     )
 INITCOMANDE=(
     "init-sftp"
@@ -71,6 +72,9 @@ call_command() {
             ;;
         "init-nginx")
             "$ADMIN_KIT_DIR/init/init-nginx.sh" "$@"
+            ;;
+        "remove-sftp-user")
+            "$ADMIN_KIT_DIR/utils/remove-sftp-user.sh" "$@"
             ;;
         *)
             printf "Unknown command: %s\n" "$cmd" >&2
