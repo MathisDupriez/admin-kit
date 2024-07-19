@@ -30,6 +30,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Ajouter l'utilisateur au groupe sftpusers
+sudo groupadd sftpusers 2>/dev/null
 sudo usermod -aG sftpusers $USERNAME
 if [ $? -ne 0 ]; then
     echo "Échec de l'ajout de l'utilisateur $USERNAME au groupe sftpusers."
@@ -37,7 +38,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Définir les permissions correctes
-sudo chmod 700 /home/$USERNAME
+sudo chmod 755 /home/$USERNAME
 if [ $? -ne 0 ]; then
     echo "Échec de la définition des permissions sur /home/$USERNAME."
     exit 1
