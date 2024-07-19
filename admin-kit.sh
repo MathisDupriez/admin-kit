@@ -14,7 +14,7 @@ COMMANDS=(
     "add-sftp-user"
     "remove-sftp-user"
 )
-INITCOMANDE=(
+INITCOMMANDS=(
     "init-sftp"
     "init-nginx"
 )
@@ -29,7 +29,7 @@ list_commands() {
     done
     printf "\n"
     printf "Init commands:\n"
-    for cmd in "${INITCOMANDE[@]}"; do
+    for cmd in "${INITCOMMANDS[@]}"; do
         printf "  admin-kit %s\n" "$cmd"
     done
 }
@@ -84,7 +84,7 @@ call_command() {
     esac
 }
 
-# Function to check and apply execute permissions
+# Function to check and apply execute permissions to directories and their scripts
 check_and_apply_permissions() {
     local dir=$1
     if [ -d "$ADMIN_KIT_DIR/$dir" ]; then
@@ -99,6 +99,19 @@ check_and_apply_permissions() {
         else
             echo "Le répertoire $dir a déjà les permissions d'exécution."
         fi
+
+        # Apply execute permissions to all scripts in the directory
+        for script in "$ADMIN_KIT_DIR/$dir"/*.sh; do
+            if [ -f "$script" ] && [ ! -x "$script" ]; then
+                echo "Le script $script n'a pas les permissions d'exécution. Application de chmod +x."
+                chmod +x "$script"
+                if [ $? -eq 0 ]; then
+                    echo "Permissions d'exécution appliquées avec succès à $script."
+                else
+                    echo "Échec de l'application des permissions d'exécution à $script."
+                fi
+            fi
+        done
     else
         echo "Le répertoire $dir n'existe pas."
     fi
@@ -106,7 +119,7 @@ check_and_apply_permissions() {
 
 # Main function
 main() {
-    # Check and apply permissions for required directories
+    # Check and apply permissions for required directories and their scripts
     check_and_apply_permissions "utils"
     check_and_apply_permissions "init"
 
