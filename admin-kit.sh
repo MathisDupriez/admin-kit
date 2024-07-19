@@ -4,20 +4,20 @@
 ADMIN_KIT_DIR="/opt/script/admin-kit"
 COMMANDS=(
     "list-users"
-    "system-info" 
-    "disk-usage" 
-    "add-dns-record" 
-    "add-ldap-user" 
+    "system-info"
+    "disk-usage"
+    "add-dns-record"
+    "add-ldap-user"
     "remove-ldap-user"
     "add-proxy-vhost"
     "add-static-vhost"
     "add-sftp-user"
     "remove-sftp-user"
-    )
+)
 INITCOMANDE=(
     "init-sftp"
     "init-nginx"
-    )
+)
 # Ensure the admin-kit directory exists
 mkdir -p "$ADMIN_KIT_DIR"
 
@@ -84,8 +84,32 @@ call_command() {
     esac
 }
 
+# Function to check and apply execute permissions
+check_and_apply_permissions() {
+    local dir=$1
+    if [ -d "$ADMIN_KIT_DIR/$dir" ]; then
+        if [ ! -x "$ADMIN_KIT_DIR/$dir" ]; then
+            echo "Le répertoire $dir n'a pas les permissions d'exécution. Application de chmod +x."
+            chmod +x "$ADMIN_KIT_DIR/$dir"
+            if [ $? -eq 0 ]; then
+                echo "Permissions d'exécution appliquées avec succès à $dir."
+            else
+                echo "Échec de l'application des permissions d'exécution à $dir."
+            fi
+        else
+            echo "Le répertoire $dir a déjà les permissions d'exécution."
+        fi
+    else
+        echo "Le répertoire $dir n'existe pas."
+    fi
+}
+
 # Main function
 main() {
+    # Check and apply permissions for required directories
+    check_and_apply_permissions "utils"
+    check_and_apply_permissions "init"
+
     if [[ $# -eq 0 ]]; then
         list_commands
         return 0
