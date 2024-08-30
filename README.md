@@ -18,7 +18,8 @@ Il comprend des scripts pour gérer les utilisateurs SFTP, configurer des hôtes
 Pour installer Admin Kit, clonez ce dépôt sur votre serveur et configurez les permissions nécessaires :
 
 ```bash
-git clone <URL_DU_DEPOT> /opt/script/admin-kit
+mkdir /opt/script
+git clone https://github.com/MathisDupriez/admin-kit.git /opt/script/admin-kit
 cd /opt/script/admin-kit
 chmod +x admin-kit.sh
 ```
