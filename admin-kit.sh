@@ -10,7 +10,9 @@ COMMANDS=(
     "add-ldap-user"
     "remove-ldap-user"
     "add-proxy-vhost"
+    "add-proxy-cloudflared"
     "add-static-vhost"
+    "remove-nginx-vhost"
     "add-sftp-user"
     "remove-sftp-user"
 )
@@ -64,8 +66,14 @@ call_command() {
         "add-proxy-vhost")
             "$ADMIN_KIT_DIR/utils/add-proxy-vhost.sh" "$@"
             ;;
+        "add-proxy-cloudflared")
+            "$ADMIN_KIT_DIR/utils/add-proxy-cloudflared.sh" "$@"
+            ;;
         "add-static-vhost")
             "$ADMIN_KIT_DIR/utils/add-static-vhost.sh" "$@"
+            ;;
+        "remove-nginx-vhost")
+            "$ADMIN_KIT_DIR/utils/remove-nginx-vhost.sh" "$@"
             ;;
         "init-sftp")
             "$ADMIN_KIT_DIR/init/init-sftp.sh" "$@"
