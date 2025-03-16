@@ -12,6 +12,7 @@ COMMANDS=(
     "add-proxy-vhost"
     "add-proxy-cloudflared"
     "add-static-vhost"
+    "add-static-cloudflared"
     "remove-nginx-vhost"
     "add-sftp-user"
     "remove-sftp-user"
@@ -71,6 +72,9 @@ call_command() {
             ;;
         "add-static-vhost")
             "$ADMIN_KIT_DIR/utils/add-static-vhost.sh" "$@"
+            ;;
+        "add-static-cloudflared")
+            "$ADMIN_KIT_DIR/utils/add-static-cloudflared.sh" "$@"
             ;;
         "remove-nginx-vhost")
             "$ADMIN_KIT_DIR/utils/remove-nginx-vhost.sh" "$@"
